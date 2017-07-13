@@ -10,8 +10,9 @@
         <Image x:Name="image" HorizontalAlignment="Left" Height="301" Margin="10,10,0,0" VerticalAlignment="Top" Width="398"/>
         <Button x:Name="button" Content="Otwórz" HorizontalAlignment="Left" Margin="424,61,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
         <Button x:Name="button1" Content="Zapisz" HorizontalAlignment="Left" Margin="424,96,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
-        <CheckBox x:Name="checkBox" Content="Kompresja" HorizontalAlignment="Left" Margin="424,142,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.33,-0.513"/>
+        <CheckBox x:Name="checkBox" Content="Logo" HorizontalAlignment="Left" Margin="424,142,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.33,-0.513"/>
         <CheckBox x:Name="checkBox1" Content="Białe tło" HorizontalAlignment="Left" Margin="424,162,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.33,-0.513" IsChecked="True"/>
         <Button x:Name="button2" Content="Express" HorizontalAlignment="Left" Margin="425,27,0,0" VerticalAlignment="Top" Width="75" Click="button2_Click"/>
+        <CheckBox x:Name="checkBox2" Content="Kompresja" HorizontalAlignment="Left" Margin="425,182,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.33,-0.513" IsChecked="True"/>
     </Grid>
 </Window>

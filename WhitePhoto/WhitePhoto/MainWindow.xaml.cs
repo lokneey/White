@@ -25,7 +25,7 @@ namespace WhitePhoto
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+        public string imagePath ="";
         public MainWindow()
         {
             InitializeComponent();
@@ -57,7 +57,7 @@ namespace WhitePhoto
             {
                 
                 image.Source = new BitmapImage(new Uri(okienko.FileName));
-                
+                imagePath = okienko.FileName;
             }
             else
             {
@@ -72,19 +72,121 @@ namespace WhitePhoto
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            if(checkBox.IsChecked == true && checkBox.IsChecked == true)
-            {
 
+            if (imagePath == "")
+            { 
+            MessageBoxResult result1 = MessageBox.Show("Załduj najpierw obraz!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            if (result1 == MessageBoxResult.OK)
+            {
+                goto escape;
+
+            }
+            }
+
+            Bitmap bmpPic1 = BitmapImage2Bitmap(new Uri(imagePath));
+            
+
+            if (checkBox.IsChecked == true && checkBox.IsChecked == true)
+            {
+                string path = AppDomain.CurrentDomain.BaseDirectory;
+                path = path.Replace(@"\", "/");
+                Bitmap bmpPic2 = new Bitmap(path + "do.png");
+                double width = 1.4 * bmpPic1.Width;
+                double height = 1.4 * bmpPic1.Height;
+
+
+                System.Drawing.Image white = new Bitmap((int)Math.Round(width), (int)Math.Round(height), System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+
+                using (Graphics grp = Graphics.FromImage(white))
+                {
+                    grp.FillRectangle(
+                        System.Drawing.Brushes.White, 0, 0, (int)Math.Round(width), (int)Math.Round(height));
+
+                }
+                using (Graphics g = Graphics.FromImage(white))
+                {
+
+                    g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
+                    g.DrawImage(bmpPic1, new System.Drawing.Point((int)Math.Round(0.2 * white.Width / 1.4), (int)Math.Round(0.2 * white.Height / 1.4)));
+                    g.DrawImage(bmpPic2, new System.Drawing.Point((int)Math.Round(0.7 * white.Width), (int)Math.Round(0.15 * white.Height)));
+
+
+                }
+                SaveFileDialog okienko = new SaveFileDialog();
+                okienko.Filter = "Pliki PNG | *.png";
+                System.Drawing.Imaging.ImageFormat format = System.Drawing.Imaging.ImageFormat.Png;
+                if (okienko.ShowDialog() == true)
+                {
+
+
+                    FileStream saveStream = new FileStream(okienko.FileName, FileMode.Create);
+                    white.Save(saveStream, ImageFormat.Png);
+                    saveStream.Close();
+                }
             }
             else if (checkBox.IsChecked==true)
             {
+                string path = AppDomain.CurrentDomain.BaseDirectory;
+                path = path.Replace(@"\", "/");
+                Bitmap bmpPic2 = new Bitmap(path + "do.png");
 
+                using (Graphics gre = Graphics.FromImage(bmpPic1))
+                {
+
+                    gre.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
+                    
+                    gre.DrawImage(bmpPic2, new System.Drawing.Point((int)Math.Round(0.7 * bmpPic1.Width), (int)Math.Round(0.15 * bmpPic1.Height)));
+
+
+                }
+                SaveFileDialog okienko = new SaveFileDialog();
+                okienko.Filter = "Pliki PNG | *.png";
+                System.Drawing.Imaging.ImageFormat format = System.Drawing.Imaging.ImageFormat.Png;
+                if (okienko.ShowDialog() == true)
+                {
+
+
+                    FileStream saveStream = new FileStream(okienko.FileName, FileMode.OpenOrCreate);
+                    bmpPic1.Save(saveStream, ImageFormat.Png);
+                    saveStream.Close();
+                }
 
             }
             else if (checkBox1.IsChecked==true)
             {
 
+                double width = 1.4 * bmpPic1.Width;
+                double height = 1.4 * bmpPic1.Height;
 
+
+                System.Drawing.Image white = new Bitmap((int)Math.Round(width), (int)Math.Round(height), System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+
+                using (Graphics grp = Graphics.FromImage(white))
+                {
+                    grp.FillRectangle(
+                        System.Drawing.Brushes.White, 0, 0, (int)Math.Round(width), (int)Math.Round(height));
+
+                }
+                using (Graphics g = Graphics.FromImage(white))
+                {
+
+                    g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
+                    g.DrawImage(bmpPic1, new System.Drawing.Point((int)Math.Round(0.2 * white.Width / 1.4), (int)Math.Round(0.2 * white.Height / 1.4)));
+                    
+
+
+                }
+                SaveFileDialog okienko = new SaveFileDialog();
+                okienko.Filter = "Pliki PNG | *.png";
+                System.Drawing.Imaging.ImageFormat format = System.Drawing.Imaging.ImageFormat.Png;
+                if (okienko.ShowDialog() == true)
+                {
+
+
+                    FileStream saveStream = new FileStream(okienko.FileName, FileMode.Create);
+                    white.Save(saveStream, ImageFormat.Png);
+                    saveStream.Close();
+                }
             }
             else
                 {
@@ -96,20 +198,7 @@ namespace WhitePhoto
                 }
             }
 
-            SaveFileDialog okienko = new SaveFileDialog();
-            okienko.Filter = "Pliki PNG | *.png";
-            System.Drawing.Imaging.ImageFormat format = System.Drawing.Imaging.ImageFormat.Png;
-            if (okienko.ShowDialog() == true)
-            {
-  
-
-                FileStream saveStream = new FileStream(okienko.FileName, FileMode.OpenOrCreate);
-                PngBitmapEncoder encoder = new PngBitmapEncoder();
-
-                encoder.Frames.Add(BitmapFrame.Create((BitmapSource)image.Source));
-                encoder.Save(saveStream);
-                saveStream.Close();
-            }
+            
             escape:
             Task.Delay(100);
         }
@@ -163,16 +252,15 @@ namespace WhitePhoto
 
             }
 
-            SaveFileDialog okienko1 = new SaveFileDialog();
-            okienko1.Filter = "Pliki PNG | *.png";
-            System.Drawing.Imaging.ImageFormat format = System.Drawing.Imaging.ImageFormat.Png;
-            if (okienko1.ShowDialog() == true)
-            {
-                FileStream saveStream = new FileStream(okienko1.FileName, FileMode.OpenOrCreate);
+            
+            string currentPath = okienko.FileName;
+           
+
+            FileStream saveStream = new FileStream(currentPath+"-white.png", FileMode.Create);
                 white.Save(saveStream, ImageFormat.Png);
                 saveStream.Close();
                
-            }
+            
 
             escape:
             Task.Delay(100);
