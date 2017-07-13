@@ -119,9 +119,9 @@ namespace WhitePhoto
                 {
 
 
-                    FileStream saveStream = new FileStream(okienko.FileName, FileMode.Create);
-                    white.Save(saveStream, ImageFormat.Png);
-                    saveStream.Close();
+                    FileStream saveStream1 = new FileStream(okienko.FileName, FileMode.Create);
+                    white.Save(saveStream1, ImageFormat.Png);
+                    saveStream1.Close();
                 }
             }
             else if (checkBox.IsChecked==true)
@@ -146,9 +146,9 @@ namespace WhitePhoto
                 {
 
 
-                    FileStream saveStream = new FileStream(okienko.FileName, FileMode.OpenOrCreate);
-                    bmpPic1.Save(saveStream, ImageFormat.Png);
-                    saveStream.Close();
+                    FileStream saveStream2 = new FileStream(okienko.FileName, FileMode.OpenOrCreate);
+                    bmpPic1.Save(saveStream2, ImageFormat.Png);
+                    saveStream2.Close();
                 }
 
             }
@@ -183,9 +183,9 @@ namespace WhitePhoto
                 {
 
 
-                    FileStream saveStream = new FileStream(okienko.FileName, FileMode.Create);
-                    white.Save(saveStream, ImageFormat.Png);
-                    saveStream.Close();
+                    FileStream saveStream3 = new FileStream(okienko.FileName, FileMode.Create);
+                    white.Save(saveStream3, ImageFormat.Png);
+                    saveStream3.Close();
                 }
             }
             else
