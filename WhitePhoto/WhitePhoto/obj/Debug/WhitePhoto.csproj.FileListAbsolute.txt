@@ -1,0 +1,14 @@
+D:\WhitePhoto\WhitePhoto\WhitePhoto\obj\Debug\WhitePhoto.csprojResolveAssemblyReference.cache
+D:\WhitePhoto\WhitePhoto\WhitePhoto\obj\Debug\MainWindow.g.cs
+D:\WhitePhoto\WhitePhoto\WhitePhoto\obj\Debug\App.g.cs
+D:\WhitePhoto\WhitePhoto\WhitePhoto\obj\Debug\WhitePhoto_MarkupCompile.cache
+D:\WhitePhoto\WhitePhoto\WhitePhoto\obj\Debug\WhitePhoto_MarkupCompile.lref
+D:\WhitePhoto\WhitePhoto\WhitePhoto\bin\Debug\WhitePhoto.exe.config
+D:\WhitePhoto\WhitePhoto\WhitePhoto\bin\Debug\WhitePhoto.exe
+D:\WhitePhoto\WhitePhoto\WhitePhoto\bin\Debug\WhitePhoto.pdb
+D:\WhitePhoto\WhitePhoto\WhitePhoto\obj\Debug\MainWindow.baml
+D:\WhitePhoto\WhitePhoto\WhitePhoto\obj\Debug\WhitePhoto.g.resources
+D:\WhitePhoto\WhitePhoto\WhitePhoto\obj\Debug\WhitePhoto.Properties.Resources.resources
+D:\WhitePhoto\WhitePhoto\WhitePhoto\obj\Debug\WhitePhoto.csproj.GenerateResource.Cache
+D:\WhitePhoto\WhitePhoto\WhitePhoto\obj\Debug\WhitePhoto.exe
+D:\WhitePhoto\WhitePhoto\WhitePhoto\obj\Debug\WhitePhoto.pdb

@@ -1,0 +1,17 @@
+﻿<Window x:Class="WhitePhoto.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WhitePhoto"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Image x:Name="image" HorizontalAlignment="Left" Height="301" Margin="10,10,0,0" VerticalAlignment="Top" Width="398"/>
+        <Button x:Name="button" Content="Otwórz" HorizontalAlignment="Left" Margin="424,61,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <Button x:Name="button1" Content="Zapisz" HorizontalAlignment="Left" Margin="424,96,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
+        <CheckBox x:Name="checkBox" Content="Kompresja" HorizontalAlignment="Left" Margin="424,142,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.33,-0.513"/>
+        <CheckBox x:Name="checkBox1" Content="Białe tło" HorizontalAlignment="Left" Margin="424,162,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.33,-0.513" IsChecked="True"/>
+        <Button x:Name="button2" Content="Express" HorizontalAlignment="Left" Margin="425,27,0,0" VerticalAlignment="Top" Width="75" Click="button2_Click"/>
+    </Grid>
+</Window>
