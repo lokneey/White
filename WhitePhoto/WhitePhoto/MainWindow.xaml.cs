@@ -26,6 +26,10 @@ namespace WhitePhoto
     public partial class MainWindow : Window
     {
         public string imagePath ="";
+        public bool done = false;
+        public bool sucess = false;
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -47,7 +51,9 @@ namespace WhitePhoto
                 return new Bitmap(bitmap);
             }
         }
+
        
+
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
@@ -84,9 +90,9 @@ namespace WhitePhoto
             }
 
             Bitmap bmpPic1 = BitmapImage2Bitmap(new Uri(imagePath));
-            
 
-            if (checkBox.IsChecked == true && checkBox.IsChecked == true)
+
+            if (checkBox.IsChecked == true && checkBox1.IsChecked == true)
             {
                 string path = AppDomain.CurrentDomain.BaseDirectory;
                 path = path.Replace(@"\", "/");
@@ -112,19 +118,37 @@ namespace WhitePhoto
 
 
                 }
-                SaveFileDialog okienko = new SaveFileDialog();
-                okienko.Filter = "Pliki PNG | *.png";
-                System.Drawing.Imaging.ImageFormat format = System.Drawing.Imaging.ImageFormat.Png;
-                if (okienko.ShowDialog() == true)
+                if (checkBox2.IsChecked == true)
+                {
+                    Bitmap toBitmap = new Bitmap(white);
+
+                    string currentPath = imagePath;
+
+                    Bitmap final = Compression.doCompress(toBitmap);
+
+                    FileStream cmpSave = new FileStream(currentPath + "-white-compressed.png", FileMode.Create);
+                    final.Save(cmpSave, ImageFormat.Png);
+                    cmpSave.Close();
+                }
+                else
                 {
 
 
-                    FileStream saveStream1 = new FileStream(okienko.FileName, FileMode.Create);
-                    white.Save(saveStream1, ImageFormat.Png);
-                    saveStream1.Close();
+                    SaveFileDialog okienko = new SaveFileDialog();
+                    okienko.Filter = "Pliki PNG | *.png";
+                    System.Drawing.Imaging.ImageFormat format = System.Drawing.Imaging.ImageFormat.Png;
+                    if (okienko.ShowDialog() == true)
+                    {
+
+
+                        FileStream saveStream2 = new FileStream(okienko.FileName, FileMode.OpenOrCreate);
+                        white.Save(saveStream2, ImageFormat.Png);
+                        saveStream2.Close();
+                    }
+
                 }
             }
-            else if (checkBox.IsChecked==true)
+            else if (checkBox.IsChecked == true && checkBox1.IsChecked == false)
             {
                 string path = AppDomain.CurrentDomain.BaseDirectory;
                 path = path.Replace(@"\", "/");
@@ -134,25 +158,43 @@ namespace WhitePhoto
                 {
 
                     gre.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
-                    
+
                     gre.DrawImage(bmpPic2, new System.Drawing.Point((int)Math.Round(0.7 * bmpPic1.Width), (int)Math.Round(0.15 * bmpPic1.Height)));
 
 
                 }
-                SaveFileDialog okienko = new SaveFileDialog();
-                okienko.Filter = "Pliki PNG | *.png";
-                System.Drawing.Imaging.ImageFormat format = System.Drawing.Imaging.ImageFormat.Png;
-                if (okienko.ShowDialog() == true)
+
+                if (checkBox2.IsChecked == true)
                 {
+                    Bitmap toBitmap = new Bitmap(bmpPic1);
 
+                    string currentPath = imagePath;
 
-                    FileStream saveStream2 = new FileStream(okienko.FileName, FileMode.OpenOrCreate);
-                    bmpPic1.Save(saveStream2, ImageFormat.Png);
-                    saveStream2.Close();
+                    Bitmap final = Compression.doCompress(toBitmap);
+
+                    FileStream cmpSave = new FileStream(currentPath + "-white-compressed.png", FileMode.Create);
+                    final.Save(cmpSave, ImageFormat.Png);
+                    cmpSave.Close();
                 }
+                else
+                {
+                    
 
+                    SaveFileDialog okienko = new SaveFileDialog();
+                    okienko.Filter = "Pliki PNG | *.png";
+                    System.Drawing.Imaging.ImageFormat format = System.Drawing.Imaging.ImageFormat.Png;
+                    if (okienko.ShowDialog() == true)
+                    {
+
+
+                        FileStream saveStream2 = new FileStream(okienko.FileName, FileMode.OpenOrCreate);
+                        bmpPic1.Save(saveStream2, ImageFormat.Png);
+                        saveStream2.Close();
+                    }
+                    
+                }
             }
-            else if (checkBox1.IsChecked==true)
+            else if (checkBox1.IsChecked == true && checkBox.IsChecked == false)
             {
 
                 double width = 1.4 * bmpPic1.Width;
@@ -176,17 +218,37 @@ namespace WhitePhoto
 
 
                 }
-                SaveFileDialog okienko = new SaveFileDialog();
-                okienko.Filter = "Pliki PNG | *.png";
-                System.Drawing.Imaging.ImageFormat format = System.Drawing.Imaging.ImageFormat.Png;
-                if (okienko.ShowDialog() == true)
+                if (checkBox2.IsChecked == true)
+                {
+                    Bitmap toBitmap = new Bitmap(white);
+
+                    string currentPath = imagePath;
+
+                    Bitmap final = Compression.doCompress(toBitmap);
+
+                    FileStream cmpSave = new FileStream(currentPath + "-white-compressed.png", FileMode.Create);
+                    final.Save(cmpSave, ImageFormat.Png);
+                    cmpSave.Close();
+                }
+                else
                 {
 
 
-                    FileStream saveStream3 = new FileStream(okienko.FileName, FileMode.Create);
-                    white.Save(saveStream3, ImageFormat.Png);
-                    saveStream3.Close();
+                    SaveFileDialog okienko = new SaveFileDialog();
+                    okienko.Filter = "Pliki PNG | *.png";
+                    System.Drawing.Imaging.ImageFormat format = System.Drawing.Imaging.ImageFormat.Png;
+                    if (okienko.ShowDialog() == true)
+                    {
+
+
+                        FileStream saveStream2 = new FileStream(okienko.FileName, FileMode.OpenOrCreate);
+                        white.Save(saveStream2, ImageFormat.Png);
+                        saveStream2.Close();
+                    }
+
                 }
+
+
             }
             else
                 {
@@ -198,6 +260,7 @@ namespace WhitePhoto
                 }
             }
 
+
             
             escape:
             Task.Delay(100);
@@ -206,8 +269,10 @@ namespace WhitePhoto
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog okienko = new OpenFileDialog();
-            okienko.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
+            done = false;
+             sucess = false;
+        OpenFileDialog okienko = new OpenFileDialog();
+            okienko.Filter = "All supported graphics|*.jpg;*.jpeg;*.png;*.bmp|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
             if (okienko.ShowDialog() == true)
             {
 
@@ -252,19 +317,29 @@ namespace WhitePhoto
 
             }
 
-            
-            string currentPath = okienko.FileName;
+
            
 
-            FileStream saveStream = new FileStream(currentPath+"-white.png", FileMode.Create);
-                white.Save(saveStream, ImageFormat.Png);
-                saveStream.Close();
-               
-            
+            Bitmap toBitmap = new Bitmap(white);
+
+            string currentPath = okienko.FileName;
+
+            //Kompresja
+
+            Bitmap final = Compression.doCompress(toBitmap);
+
+            //Kompresja - koniec
+
+            FileStream cmpSave = new FileStream(currentPath + "-white-compressed.png", FileMode.Create);
+            final.Save(cmpSave, ImageFormat.Png);
+            cmpSave.Close();
 
             escape:
             Task.Delay(100);
 
         }
+
+        
+
     }
 }
