@@ -230,6 +230,7 @@ namespace WhitePhoto
                     final.Save(cmpSave, ImageFormat.Png);
                     cmpSave.Close();
                 }
+                
                 else
                 {
 
@@ -249,6 +250,35 @@ namespace WhitePhoto
                 }
 
 
+            }
+            else if (checkBox1.IsChecked == false && checkBox.IsChecked == false)
+            {
+                
+                if (checkBox2.IsChecked == true)
+                {
+                    Bitmap toBitmap = new Bitmap(bmpPic1);
+
+                    string currentPath = imagePath;
+
+                    Bitmap final = Compression.doCompress(toBitmap);
+
+                    FileStream cmpSave = new FileStream(currentPath + "-white-compressed.png", FileMode.Create);
+                    final.Save(cmpSave, ImageFormat.Png);
+                    cmpSave.Close();
+                }
+
+                else
+                {
+
+
+                    MessageBoxResult result1 = MessageBox.Show("Musisz wykonać zmiany w obrazie! Zaznacz którąś z dostępnych funkcji!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if (result1 == MessageBoxResult.OK)
+                    {
+                        goto escape;
+
+                    }
+
+                }
             }
             else
                 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -138,8 +139,8 @@ namespace WhitePhoto
 
             OnQuantizationCompleted(new EventArgs()); //Fire Quantization finished event to notify any subscribers
 
-            stop:
-            Task.Delay(100);
+           // Stop:
+           // Task.Delay(100);
         }
 
         /// <summary>Begins the median cut portion of the quantization
@@ -509,11 +510,15 @@ namespace WhitePhoto
                 MessageBoxResult result1 = MessageBox.Show("Ten obraz został już skwantowany. Nie możesz już powtórzyć procesu na tym pliku!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 if (result1 == MessageBoxResult.OK)
                 {
-                    goto stop;
+                    string path = AppDomain.CurrentDomain.BaseDirectory;
+                    path = path.Replace(@"\", "/");
+                    Process.Start(path+"WhitePhoto.exe");
+                    Process.GetCurrentProcess().Kill();
+                    // goto Stop;
                 }
 
             }
-
+           
 
             //Sum the red, green, and blue components of all points in the box
             for ( int i = box.lower; i <= box.upper; i++ )
