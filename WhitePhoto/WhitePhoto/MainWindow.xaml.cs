@@ -29,7 +29,7 @@ namespace WhitePhoto
         public string imagePath = "";
         public bool done = false;
         public bool sucess = false;
-        public List<string> loadedFiles;
+        public List<string> loadedFiles = new List<string>();
 
 
         public MainWindow()
@@ -121,14 +121,24 @@ namespace WhitePhoto
             textBlock.Text = "Przetwarzam. To może zająć chwilę. Proszę czekać.";
 
             progressBar.IsIndeterminate = true;
-            for (int i = 0; i<= loadedFiles.Count; i++)
+            for (int i = 0; i< loadedFiles.Count; i++)
             {
                 await ExpressEvent(loadedFiles[i]);
             }     
             progressBar.IsIndeterminate = false;
+            if (loadedFiles.Count > 1 && loadedFiles.Count <5)
+            {
+                textBlock.Text = "Zakończono! Przetworzono " + loadedFiles.Count + " obrazy. Możesz załadować kolejne obrazy.";
+            }
+            if (loadedFiles.Count > 4)
+            {
+                textBlock.Text = "Zakończono! Przetworzono " + loadedFiles.Count + " obrazów. Możesz załadować kolejne obrazy.";
+            }
+            else
+            {
+                textBlock.Text = "Zakończono! Przetworzono "+loadedFiles.Count+" obraz. Możesz załadować kolejne obrazy.";
+            }
             loadedFiles.Clear();
-            textBlock.Text = "Zakończono! Możesz załadować kolejny obraz.";
-
             escape:
             Task.Delay(100);
         }
