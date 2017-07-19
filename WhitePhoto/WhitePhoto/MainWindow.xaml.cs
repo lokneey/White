@@ -29,6 +29,7 @@ namespace WhitePhoto
         public string imagePath = "";
         public bool done = false;
         public bool sucess = false;
+        public List<string> loadedFiles;
 
 
         public MainWindow()
@@ -60,7 +61,7 @@ namespace WhitePhoto
         {
             OpenFileDialog okienko = new OpenFileDialog();
             okienko.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
-            //okienko.Multiselect = true;
+            
             if (okienko.ShowDialog() == true)
             {
 
@@ -94,10 +95,16 @@ namespace WhitePhoto
         private async void button2_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog okienko = new OpenFileDialog();
+            okienko.Multiselect = true;
             okienko.Filter = "All supported graphics|*.jpg;*.jpeg;*.png;*.bmp|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
+           
             if (okienko.ShowDialog() == true)
             {
-
+                foreach (string fileName in okienko.FileNames)
+                {
+                    
+                    loadedFiles.Add(fileName);  //NIe działa???????????????????????????????
+                }
                 image.Source = new BitmapImage(new Uri(okienko.FileName));
 
             }
@@ -114,11 +121,12 @@ namespace WhitePhoto
             textBlock.Text = "Przetwarzam. To może zająć chwilę. Proszę czekać.";
 
             progressBar.IsIndeterminate = true;
-
-            await ExpressEvent(okienko);
-                        
+            for (int i = 0; i<= loadedFiles.Count; i++)
+            {
+                await ExpressEvent(loadedFiles[i]);
+            }     
             progressBar.IsIndeterminate = false;
-
+            loadedFiles.Clear();
             textBlock.Text = "Zakończono! Możesz załadować kolejny obraz.";
 
             escape:
@@ -126,12 +134,12 @@ namespace WhitePhoto
         }
 
 
-        private async Task ExpressEvent(OpenFileDialog okienko)
+        private async Task ExpressEvent(String filePath)
         {
             await Task.Run(() =>
             {
                 
-                Bitmap bmpPic1 = BitmapImage2Bitmap(new Uri(okienko.FileName));
+                Bitmap bmpPic1 = BitmapImage2Bitmap(new Uri(filePath));
                 string path = AppDomain.CurrentDomain.BaseDirectory;
                 path = path.Replace(@"\", "/");
                 Bitmap bmpPic2 = new Bitmap(path + "do.png");
@@ -182,7 +190,7 @@ namespace WhitePhoto
 
                 Bitmap toBitmap = new Bitmap(white);
 
-                string currentPath = okienko.FileName;
+                string currentPath = filePath;
 
                 //Kompresja
 
@@ -443,8 +451,6 @@ namespace WhitePhoto
 
                     }
                 }
-
-
 
                 escape:
                 Task.Delay(100);
