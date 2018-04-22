@@ -1,7 +1,7 @@
 # White
 An application which creates white bacground around the image and adds a watermark.
 
-#Licese
+# Licese
 Copyright [2018] [Łukasz Granat]
 
 Licensed under the Apache License, Version 2.0 (the "License");
